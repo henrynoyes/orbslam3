@@ -41,9 +41,9 @@ MESSAGE("OPENCV VERSION:")
 MESSAGE(${OpenCV_VERSION})
 
 # Add the directory containing libORB_SLAM3.so to the linker search path
-link_directories(~/thirdparty/ORB-SLAM3-STEREO-FIXED/Thirdparty/DBoW2/lib)
-link_directories(~/thirdparty/ORB-SLAM3-STEREO-FIXED/Thirdparty/g2o/lib)
-link_directories(~/thirdparty/ORB-SLAM3-STEREO-FIXED/lib)
+link_directories(~/ORB_SLAM3/Thirdparty/DBoW2/lib)
+link_directories(~/ORB_SLAM3/Thirdparty/g2o/lib)
+link_directories(~/ORB_SLAM3/lib)
 
 add_executable(mono
   src/monocular/mono.cpp
