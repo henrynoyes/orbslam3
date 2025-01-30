@@ -13,7 +13,7 @@ launch:
       default: "false"
   - arg:
       name: "camera_name"
-      default: "d435i"
+      default: "camera"
   - node:
       pkg: "orbslam3"
       exec: "stereo-inertial"
@@ -31,4 +31,4 @@ launch:
           to: "/$(var camera_name)/$(var camera_name)/infra2/image_rect_raw"
         -
           from: "/imu"
-          to: "/$(var camera_name)/$(var camera_name)/imu"
+          to: "/rs_imu/data"
