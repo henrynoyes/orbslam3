@@ -270,20 +270,20 @@ void StereoInertialNode::SyncWithImu()
 
             // Option1: publish map to odom tf from SLAM and odom to camera from VIO 
             //// TF processing ////
-            try {               
-                geometry_msgs::msg::TransformStamped camera_to_odom = tf_buffer_->lookupTransform(body_frame, odom_frame, tf2::TimePointZero);
-                Sophus::SE3f Tco= transform_to_SE3(camera_to_odom);
-                Sophus::SE3f Two = Twc * Tco.inverse();
-                publish_world_to_odom_tf(tf_broadcaster_, this->get_clock()->now(), Two, world_frame, odom_frame);
-            } catch (const tf2::TransformException & ex) {
-                RCLCPP_INFO(
-                this->get_logger(), "Could not get transform %s to %s: %s",
-                body_frame.c_str(), odom_frame.c_str(), ex.what());
-                return;
-            }
+            // try {               
+            //     geometry_msgs::msg::TransformStamped camera_to_odom = tf_buffer_->lookupTransform(body_frame, odom_frame, tf2::TimePointZero);
+            //     Sophus::SE3f Tco= transform_to_SE3(camera_to_odom);
+            //     Sophus::SE3f Two = Twc * Tco.inverse();
+            //     publish_world_to_odom_tf(tf_broadcaster_, this->get_clock()->now(), Two, world_frame, odom_frame);
+            // } catch (const tf2::TransformException & ex) {
+            //     RCLCPP_INFO(
+            //     this->get_logger(), "Could not get transform %s to %s: %s",
+            //     body_frame.c_str(), odom_frame.c_str(), ex.what());
+            //     return;
+            // }
 
             // Option2: publish map to camera tf from SLAM
-            // publish_camera_tf(tf_broadcaster_, this->get_clock()->now(), Twc, world_frame, body_frame);
+            publish_camera_tf(tf_broadcaster_, this->get_clock()->now(), Twc, world_frame, body_frame);
             publish_camera_pose(pubPose_, this->get_clock()->now(), Twc, world_frame);
             publish_tracking_img(pubTrackImage_, this->get_clock()->now(), SLAM_->GetCurrentFrame(), world_frame);
 

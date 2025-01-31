@@ -141,20 +141,20 @@ void StereoSlamNode::GrabStereo(const ImageMsg::SharedPtr msgLeft, const ImageMs
 
     // Option1: publish map to odom tf from SLAM and odom to camera from VIO 
     // TF processing ////
-    try {
-        geometry_msgs::msg::TransformStamped camera_to_odom = tf_buffer_->lookupTransform(camera_frame, odom_frame, tf2::TimePointZero);
-        Sophus::SE3f Tco= transform_to_SE3(camera_to_odom);
-        Sophus::SE3f Two = Twc * Tco.inverse();
-        publish_world_to_odom_tf(tf_broadcaster_, this->get_clock()->now(), Two, world_frame, odom_frame);
-    } catch (const tf2::TransformException & ex) {
-        RCLCPP_INFO(
-        this->get_logger(), "Could not get transform %s to %s: %s",
-        camera_frame.c_str(), odom_frame.c_str(), ex.what());
-        return;
-    }
+    // try {
+    //     geometry_msgs::msg::TransformStamped camera_to_odom = tf_buffer_->lookupTransform(camera_frame, odom_frame, tf2::TimePointZero);
+    //     Sophus::SE3f Tco= transform_to_SE3(camera_to_odom);
+    //     Sophus::SE3f Two = Twc * Tco.inverse();
+    //     publish_world_to_odom_tf(tf_broadcaster_, this->get_clock()->now(), Two, world_frame, odom_frame);
+    // } catch (const tf2::TransformException & ex) {
+    //     RCLCPP_INFO(
+    //     this->get_logger(), "Could not get transform %s to %s: %s",
+    //     camera_frame.c_str(), odom_frame.c_str(), ex.what());
+    //     return;
+    // }
 
     // Option2: publish map to camera tf from SLAM
-    // publish_camera_tf(tf_broadcaster_, this->get_clock()->now(), Twc, world_frame, camera_frame);
+    publish_camera_tf(tf_broadcaster_, this->get_clock()->now(), Twc, world_frame, camera_frame);
     publish_camera_pose(pubPose_, this->get_clock()->now(), Twc, world_frame);
     publish_tracking_img(pubTrackImage_, this->get_clock()->now(), m_SLAM->GetCurrentFrame(), world_frame);
 }
