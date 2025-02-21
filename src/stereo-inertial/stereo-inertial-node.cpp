@@ -287,8 +287,8 @@ void StereoInertialNode::SyncWithImu()
             publish_camera_pose(pubPose_, this->get_clock()->now(), Twc, world_frame);
             publish_tracking_img(pubTrackImage_, this->get_clock()->now(), SLAM_->GetCurrentFrame(), world_frame);
 
-            // std::chrono::milliseconds tSleep(1);
-            // std::this_thread::sleep_for(tSleep);
+            std::chrono::milliseconds tSleep(1);
+            std::this_thread::sleep_for(tSleep);
         }
     }
 }
