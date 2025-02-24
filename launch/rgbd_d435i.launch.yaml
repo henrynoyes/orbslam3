@@ -1,0 +1,28 @@
+launch:
+  - arg:
+      name: "vocab"
+      default: $(find-pkg-share orbslam3)/vocabulary/ORBvoc.txt
+  - arg:
+      name: "config"
+      default: $(find-pkg-share orbslam3)/config/rgb-d/RealSense_D435i.yaml
+  - arg:
+      name: "rectify"
+      default: "false"
+  - arg:
+      name: "camera_name"
+      default: "camera"
+  - node:
+      pkg: "orbslam3"
+      exec: "rgbd"
+      name: "orbslam3"
+      args: $(var vocab) $(var config) $(var rectify)
+      param:
+        - 
+          from: "$(find-pkg-share orbslam3)/config/rgbd-slam_d435i.yaml"
+      remap:
+      -
+          from: "/camera/rgb"
+          to: "/$(var camera_name)/$(var camera_name)/color/image_raw"
+      - 
+          from: "/camera/depth"
+          to: "/$(var camera_name)/$(var camera_name)/aligned_depth_to_color/image_raw"

@@ -1,0 +1,10 @@
+orbslam3:
+  ros__parameters:
+    world_frame: "map_vslam"
+    odom_frame: "odom_frame"
+    camera_optical_frame: "camera_color_optical_frame"
+    body_frame: "camera_link"
+    body_optical_frame: "camera_imu_optical_frame"
+    # camera_optical_frame: "d455_infra1_optical_frame"
+    # body_frame: "d455_link"
+    # body_optical_frame: "d455_imu_optical_frame"
