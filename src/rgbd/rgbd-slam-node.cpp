@@ -23,6 +23,7 @@ RgbdSlamNode::~RgbdSlamNode()
 
     // Save camera trajectory
     m_SLAM->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    m_SLAM->SaveTrajectoryTUM("orbslam3_rgbd.tum");
 }
 
 void RgbdSlamNode::GrabRGBD(const ImageMsg::SharedPtr msgRGB, const ImageMsg::SharedPtr msgD)

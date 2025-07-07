@@ -77,7 +77,8 @@ StereoSlamNode::~StereoSlamNode()
     m_SLAM->Shutdown();
 
     // Save camera trajectory
-    m_SLAM->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    // m_SLAM->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    m_SLAM->SaveTrajectoryTUM("orbslam3_stereo.tum");
 }
 
 void StereoSlamNode::GrabStereo(const ImageMsg::SharedPtr msgLeft, const ImageMsg::SharedPtr msgRight)

@@ -98,7 +98,9 @@ StereoInertialNode::~StereoInertialNode()
     SLAM_->Shutdown();
 
     // Save camera trajectory
-    SLAM_->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    // SLAM_->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    RCLCPP_INFO_ONCE(this->get_logger(), "Saving trajectory to orbslam3_stereo_inertial.tum");
+    SLAM_->SaveTrajectoryTUM("orbslam3_stereo_inertial.tum");
 }
 
 void StereoInertialNode::GrabImu(const ImuMsg::SharedPtr msg)
@@ -159,7 +161,7 @@ void StereoInertialNode::SyncWithImu()
 {
     const double maxTimeDiff = 0.01;
 
-    while (1)
+    while (rclcpp::ok())
     {
         RCLCPP_INFO_ONCE(this->get_logger(), "SLAM running...");
         cv::Mat imLeft, imRight;
